@@ -1,0 +1,34 @@
+﻿Computing fixes in flutter-review-example (dry run)...
+
+9 proposed fixes in 7 files.
+
+lib\app\app.dart
+  directives_ordering - 1 fix
+
+lib\core\data\releases.dart
+  unnecessary_raw_strings - 2 fixes
+
+lib\core\theme\app_theme.dart
+  directives_ordering - 1 fix
+
+lib\features\release_detail\release_detail_page.dart
+  always_put_required_named_parameters_first - 1 fix
+  directives_ordering - 1 fix
+
+lib\features\releases\releases_page.dart
+  directives_ordering - 1 fix
+
+lib\features\settings\settings_page.dart
+  migrate_design_widgets - 1 fix
+
+test\markdown_theme_test.dart
+  directives_ordering - 1 fix
+
+To fix an individual diagnostic, run one of:
+  dart fix --apply --code=always_put_required_named_parameters_first 
+  dart fix --apply --code=directives_ordering 
+  dart fix --apply --code=migrate_design_widgets 
+  dart fix --apply --code=unnecessary_raw_strings 
+
+To fix all diagnostics, run:
+  dart fix --apply 

@@ -1,8 +1,12 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
-import 'package:material_ui/material_ui.dart';
+// Needed by dropdown_button2 3.1.0, which still uses the SDK Material
+// (see MaterialUiCompatibilityBridge in lib/app/app.dart).
+// Remove when a migrated version is published.
+// ignore: migrate_design_widgets
 import 'package:flutter/material.dart'
     as legacy
     show InputDecoration, Material, MaterialType, OutlineInputBorder;
+import 'package:material_ui/material_ui.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});

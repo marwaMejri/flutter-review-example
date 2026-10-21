@@ -1,8 +1,8 @@
-import 'package:material_ui/material_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
-
+import 'package:material_ui/material_ui.dart';
 import 'package:material_ui_packages_migration/app/app.dart';
 import 'package:material_ui_packages_migration/core/theme/app_theme.dart';
+
 TextStyle? styleOfText(InlineSpan span, String prefix) {
   if (span is TextSpan) {
     if (span.text != null && span.text!.startsWith(prefix)) {
@@ -39,7 +39,8 @@ void main() {
     expect(
       styleOfText(paragraph.text, 'Notely now saves')?.fontFamily,
       startsWith('Merriweather'),
-    );  });
+    );
+  });
 
   testWidgets('Markdown code block uses the app card color', (
     WidgetTester tester,

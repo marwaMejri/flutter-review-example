@@ -11,7 +11,7 @@ GoRouter createRouter() {
       GoRoute(
         path: '/',
         builder: (BuildContext context, GoRouterState state) =>
-        const ReleasesPage(),
+            const ReleasesPage(),
         routes: <RouteBase>[
           GoRoute(
             path: 'releases/:id',
@@ -21,7 +21,7 @@ GoRouter createRouter() {
           GoRoute(
             path: 'settings',
             builder: (BuildContext context, GoRouterState state) =>
-            const SettingsPage(),
+                const SettingsPage(),
           ),
         ],
       ),

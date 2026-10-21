@@ -5,7 +5,9 @@ import 'package:material_ui_packages_migration/features/release_detail/release_d
 import 'package:material_ui_packages_migration/features/releases/releases_page.dart';
 
 void main() {
-  testWidgets('opening a release plays a page transition', (WidgetTester tester) async {
+  testWidgets('opening a release plays a page transition', (
+    WidgetTester tester,
+  ) async {
     await tester.pumpWidget(const ReleaseNotesApp());
     await tester.pumpAndSettle();
 

@@ -46,7 +46,7 @@ Also in this version:
     version: '2.1.0',
     date: '15 July 2026',
     summary: 'Search fix',
-    notes: r'''
+    notes: '''
 ## Search fix
 
 The search field no longer loses focus when you type `#` to look for a tag.
@@ -57,7 +57,7 @@ The search field no longer loses focus when you type `#` to look for a tag.
     version: '2.0.0',
     date: '2 May 2026',
     summary: 'First public release',
-    notes: r'''
+    notes: '''
 ## First public release
 
 Write notes, sort them into folders, and search them.

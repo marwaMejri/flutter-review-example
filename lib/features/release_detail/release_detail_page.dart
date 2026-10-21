@@ -1,10 +1,9 @@
-import 'package:material_ui/material_ui.dart';
 import 'package:flutter_markdown_plus/flutter_markdown_plus.dart';
-
+import 'package:material_ui/material_ui.dart';
 import 'package:material_ui_packages_migration/core/data/releases.dart';
 
 class ReleaseDetailPage extends StatelessWidget {
-  const ReleaseDetailPage({super.key, required this.id});
+  const ReleaseDetailPage({required this.id, super.key});
 
   final String id;
 
