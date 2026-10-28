@@ -60,5 +60,7 @@ class ReleaseModel {
     date: DateTime.parse(releasedAt),
     summary: summary,
     notes: notesMarkdown,
+    downloadSizeBytes: downloadSizeBytes,
+    minimumOsVersion: minimumOsVersion,
   );
 }
