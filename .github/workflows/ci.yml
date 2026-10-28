@@ -1,0 +1,63 @@
+name: CI
+
+# Three stages on every pull request, in order:
+# 1. lint: blocking.
+# 2. test: blocking, runs when lint passes.
+# 3. review by the agent: never blocking, runs when the tests pass, so the
+#    model is only called for code that builds and passes its tests.
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          # The version used to build the app locally.
+          flutter-version: 3.47.7
+      - run: flutter pub get
+      - run: flutter analyze
+
+  test:
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version: 3.47.7
+      - run: flutter pub get
+      - run: flutter test --coverage
+
+  review:
+    needs: test
+    runs-on: ubuntu-latest
+    # Read the code, and write the review on the pull request. Nothing else.
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          # The last commit of the pull request, with the history, to compute
+          # the same diff as the "Files changed" tab.
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+
+      # @main while the agent is tested. A project should use a version tag.
+      - uses: marwaMejri/flutter-review-agent@main
+        with:
+          # Repository variables: the provider and the model can change
+          # without a commit. The key is a secret.
+          provider: ${{ vars.FLUTTER_REVIEW_PROVIDER }}
+          model: ${{ vars.FLUTTER_REVIEW_MODEL }}
+          api-key: ${{ secrets.FLUTTER_REVIEW_API_KEY }}
+          packs: material_ui_migration
