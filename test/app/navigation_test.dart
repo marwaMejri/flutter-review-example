@@ -1,8 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
-
 import 'package:material_ui_packages_migration/app/app.dart';
-import 'package:material_ui_packages_migration/features/release_detail/release_detail_page.dart';
-import 'package:material_ui_packages_migration/features/releases/releases_page.dart';
+import 'package:material_ui_packages_migration/features/releases/presentation/views/release_detail_view.dart';
+import 'package:material_ui_packages_migration/features/releases/presentation/views/releases_view.dart';
 
 void main() {
   testWidgets('opening a release plays a page transition', (
@@ -15,12 +14,12 @@ void main() {
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 100));
 
-    expect(find.byType(ReleasesPage), findsOneWidget);
-    expect(find.byType(ReleaseDetailPage), findsOneWidget);
+    expect(find.byType(ReleasesView), findsOneWidget);
+    expect(find.byType(ReleaseDetailView), findsOneWidget);
 
     await tester.pumpAndSettle();
 
-    expect(find.byType(ReleasesPage), findsNothing);
-    expect(find.byType(ReleaseDetailPage), findsOneWidget);
+    expect(find.byType(ReleasesView), findsNothing);
+    expect(find.byType(ReleaseDetailView), findsOneWidget);
   });
 }
