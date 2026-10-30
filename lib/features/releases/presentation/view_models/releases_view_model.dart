@@ -15,6 +15,9 @@ class ReleasesViewModel extends ChangeNotifier {
   List<Release> get releases => _releases;
   bool get isLoading => _isLoading;
 
+  /// The id of the newest release, or null while there is none.
+  int? get newestReleaseId => _releases.isEmpty ? null : _releases.first.id;
+
   /// A message for the user when the releases cannot be read.
   String? get error => _error;
 
