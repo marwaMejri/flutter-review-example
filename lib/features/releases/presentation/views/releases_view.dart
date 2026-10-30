@@ -46,6 +46,7 @@ class _ReleasesBody extends StatelessWidget {
       itemCount: releases.length,
       itemBuilder: (BuildContext context, int index) => ReleaseTile(
         release: releases[index],
+        isNew: releases[index].id == viewModel.newestReleaseId,
         onTap: () => context.go('/releases/${releases[index].id}'),
       ),
     );
