@@ -28,6 +28,23 @@ Also in this version:
 ''',
     'download_size_bytes': 18400000,
     'minimum_os_version': 'Android 8, iOS 15',
+    'known_issues': <String>[
+      'Sync can stop when the battery saver is on.',
+      'A note edited on two devices at once keeps only the last version.',
+      'The first sync of a large folder can take several minutes.',
+      'Images larger than 20 MB are not synced.',
+      'The sync icon can stay grey after the connection comes back.',
+      'Notes in a shared folder sync only when the owner is online.',
+      'A deleted note can come back after a sync from an old device.',
+      'The search does not find words in synced attachments yet.',
+      'Sync uses mobile data even when "Wi-Fi only" is on, on Android 8.',
+      'Moving a note to another folder during a sync can duplicate it.',
+      'The app can ask to sign in again after an update.',
+      'Dark mode is not applied to the sync settings page.',
+      'Very long note titles are cut in the sync history.',
+      'Exported PDF files do not keep the code blocks colors.',
+      'The widget on the home screen shows the old count until the app opens.',
+    ],
   },
   <String, Object?>{
     'id': 2,
@@ -41,6 +58,7 @@ The search field no longer loses focus when you type `#` to look for a tag.
 ''',
     'download_size_bytes': 17900000,
     'minimum_os_version': 'Android 8, iOS 15',
+    'known_issues': <String>[],
   },
   <String, Object?>{
     'id': 1,
@@ -54,6 +72,7 @@ Write notes, sort them into folders, and search them.
 ''',
     'download_size_bytes': 17200000,
     'minimum_os_version': 'Android 7, iOS 14',
+    'known_issues': <String>['Search ignores the accents of a word.'],
   },
 ];
 

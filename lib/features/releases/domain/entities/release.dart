@@ -8,6 +8,7 @@ class Release extends Equatable {
     required this.date,
     required this.summary,
     required this.notes,
+    required this.knownIssues,
   });
 
   final int id;
@@ -18,6 +19,17 @@ class Release extends Equatable {
   /// The release notes, in Markdown.
   final String notes;
 
+  /// The problems known in this version, one sentence each. Empty when there
+  /// is none.
+  final List<String> knownIssues;
+
   @override
-  List<Object> get props => <Object>[id, version, date, summary, notes];
+  List<Object> get props => <Object>[
+    id,
+    version,
+    date,
+    summary,
+    notes,
+    knownIssues,
+  ];
 }

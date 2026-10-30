@@ -28,14 +28,35 @@ class ReleaseDetailView extends StatelessWidget {
       ),
       body: release == null
           ? const Center(child: Text('This release does not exist.'))
-          : Markdown(
-              data: release.notes,
-              styleSheet: MarkdownStyleSheet(
-                code: TextStyle(backgroundColor: codeColor),
-                codeblockDecoration: BoxDecoration(
-                  color: codeColor,
-                  borderRadius: BorderRadius.circular(2),
-                ),
+          : SingleChildScrollView(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  MarkdownBody(
+                    data: release.notes,
+                    styleSheet: MarkdownStyleSheet(
+                      code: TextStyle(backgroundColor: codeColor),
+                      codeblockDecoration: BoxDecoration(
+                        color: codeColor,
+                        borderRadius: BorderRadius.circular(2),
+                      ),
+                    ),
+                  ),
+                  if (release.knownIssues.isNotEmpty) ...[
+                    Padding(
+                      padding: const EdgeInsets.only(top: 24, bottom: 8),
+                      child: Text(
+                        'Known issues',
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: release.knownIssues.map(Text.new).toList(),
+                    ),
+                  ],
+                ],
               ),
             ),
     );
