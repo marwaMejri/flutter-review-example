@@ -28,13 +28,16 @@ class ReleaseDetailView extends StatelessWidget {
       ),
       body: release == null
           ? const Center(child: Text('This release does not exist.'))
-          : Markdown(
-              data: release.notes,
-              styleSheet: MarkdownStyleSheet(
-                code: TextStyle(backgroundColor: codeColor),
-                codeblockDecoration: BoxDecoration(
-                  color: codeColor,
-                  borderRadius: BorderRadius.circular(2),
+          // ignore: deprecated_member_use
+          : MaterialUiCompatibilityBridge(
+              child: Markdown(
+                data: release.notes,
+                styleSheet: MarkdownStyleSheet(
+                  code: TextStyle(backgroundColor: codeColor),
+                  codeblockDecoration: BoxDecoration(
+                    color: codeColor,
+                    borderRadius: BorderRadius.circular(2),
+                  ),
                 ),
               ),
             ),
