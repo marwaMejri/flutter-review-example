@@ -42,6 +42,9 @@ class _ReleasesBody extends StatelessWidget {
       return Center(child: Text(error));
     }
     final List<Release> releases = viewModel.releases;
+    if (releases.isEmpty) {
+      return const Center(child: Text('No release yet.'));
+    }
     return ListView.builder(
       itemCount: releases.length,
       itemBuilder: (BuildContext context, int index) => ReleaseTile(
