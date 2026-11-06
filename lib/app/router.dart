@@ -17,6 +17,7 @@ GoRouter createRouter() {
     routes: <RouteBase>[
       GoRoute(
         path: '/',
+        name: 'releases',
         builder: (BuildContext context, GoRouterState state) =>
             ChangeNotifierProvider<ReleasesViewModel>(
               create: (BuildContext context) => ReleasesViewModel(
@@ -27,6 +28,7 @@ GoRouter createRouter() {
         routes: <RouteBase>[
           GoRoute(
             path: 'releases/:id',
+            name: 'release',
             builder: (BuildContext context, GoRouterState state) =>
                 ChangeNotifierProvider<ReleaseDetailViewModel>(
                   create: (BuildContext context) => ReleaseDetailViewModel(
@@ -38,6 +40,7 @@ GoRouter createRouter() {
           ),
           GoRoute(
             path: 'settings',
+            name: 'settings',
             builder: (BuildContext context, GoRouterState state) =>
                 ChangeNotifierProvider<SettingsViewModel>(
                   create: (BuildContext context) => SettingsViewModel(
