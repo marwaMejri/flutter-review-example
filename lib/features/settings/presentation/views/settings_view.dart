@@ -12,8 +12,23 @@ import 'package:material_ui_packages_migration/features/settings/presentation/vi
 import 'package:provider/provider.dart';
 
 /// The settings that the user can change.
-class SettingsView extends StatelessWidget {
+class SettingsView extends StatefulWidget {
   const SettingsView({super.key});
+
+  @override
+  State<SettingsView> createState() => _SettingsViewState();
+}
+
+class _SettingsViewState extends State<SettingsView> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<SettingsViewModel>().onChannelSaved((UpdateChannel channel) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Update channel saved: ${channel.name}')),
+      );
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

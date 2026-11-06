@@ -35,6 +35,11 @@ class SettingsViewModel extends ChangeNotifier {
     unawaited(_repository.saveChannel(channel));
   }
 
+  /// Calls [listener] each time a channel is saved.
+  void onChannelSaved(void Function(UpdateChannel channel) listener) {
+    _repository.addChannelListener(listener);
+  }
+
   @override
   void dispose() {
     _channel.dispose();
