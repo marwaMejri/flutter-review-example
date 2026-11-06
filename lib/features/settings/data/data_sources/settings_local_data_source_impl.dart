@@ -7,6 +7,8 @@ class SettingsLocalDataSourceImpl implements SettingsLocalDataSource {
     'update_channel': 'stable',
     'notifications_enabled': true,
   };
+  final List<void Function(SettingsModel settings)> _listeners =
+      <void Function(SettingsModel settings)>[];
 
   @override
   Future<SettingsModel> readSettings() async => SettingsModel.fromJson(_stored);
@@ -14,5 +16,13 @@ class SettingsLocalDataSourceImpl implements SettingsLocalDataSource {
   @override
   Future<void> writeSettings(SettingsModel settings) async {
     _stored = settings.toJson();
+    for (final void Function(SettingsModel settings) listener in _listeners) {
+      listener(settings);
+    }
+  }
+
+  @override
+  void addListener(void Function(SettingsModel settings) listener) {
+    _listeners.add(listener);
   }
 }
