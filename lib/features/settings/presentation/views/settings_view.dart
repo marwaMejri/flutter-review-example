@@ -12,36 +12,57 @@ import 'package:material_ui_packages_migration/features/settings/presentation/vi
 import 'package:provider/provider.dart';
 
 /// The settings that the user can change.
-class SettingsView extends StatelessWidget {
+class SettingsView extends StatefulWidget {
   const SettingsView({super.key});
+
+  @override
+  State<SettingsView> createState() => _SettingsViewState();
+}
+
+class _SettingsViewState extends State<SettingsView> {
+  final FocusNode _feedbackFocus = FocusNode();
 
   @override
   Widget build(BuildContext context) {
     final SettingsViewModel viewModel = context.read<SettingsViewModel>();
+    final TextEditingController feedbackController = TextEditingController();
     return Scaffold(
       appBar: AppBar(title: const Text('Settings')),
       body: Padding(
         padding: const EdgeInsets.all(16),
-        child: legacy.Material(
-          type: legacy.MaterialType.transparency,
-          child: DropdownButtonFormField2<UpdateChannel>(
-            valueListenable: viewModel.channel,
-            decoration: const legacy.InputDecoration(
-              labelText: 'Update channel',
-              border: legacy.OutlineInputBorder(),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            legacy.Material(
+              type: legacy.MaterialType.transparency,
+              child: DropdownButtonFormField2<UpdateChannel>(
+                valueListenable: viewModel.channel,
+                decoration: const legacy.InputDecoration(
+                  labelText: 'Update channel',
+                  border: legacy.OutlineInputBorder(),
+                ),
+                items: const <DropdownItem<UpdateChannel>>[
+                  DropdownItem<UpdateChannel>(
+                    value: UpdateChannel.stable,
+                    child: Text('Stable'),
+                  ),
+                  DropdownItem<UpdateChannel>(
+                    value: UpdateChannel.beta,
+                    child: Text('Beta'),
+                  ),
+                ],
+                onChanged: viewModel.selectChannel,
+              ),
             ),
-            items: const <DropdownItem<UpdateChannel>>[
-              DropdownItem<UpdateChannel>(
-                value: UpdateChannel.stable,
-                child: Text('Stable'),
+            Padding(
+              padding: const EdgeInsets.only(top: 16),
+              child: TextField(
+                controller: feedbackController,
+                focusNode: _feedbackFocus,
+                decoration: const InputDecoration(labelText: 'Feedback'),
               ),
-              DropdownItem<UpdateChannel>(
-                value: UpdateChannel.beta,
-                child: Text('Beta'),
-              ),
-            ],
-            onChanged: viewModel.selectChannel,
-          ),
+            ),
+          ],
         ),
       ),
     );
