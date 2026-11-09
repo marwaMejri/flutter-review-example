@@ -36,4 +36,5 @@ final Release release3 = Release(
   date: DateTime(2026, 10),
   summary: 'Background sync',
   notes: '## Background sync',
+  knownIssues: const <String>[],
 );
