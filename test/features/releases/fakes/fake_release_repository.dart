@@ -36,4 +36,6 @@ final Release release3 = Release(
   date: DateTime(2026, 10),
   summary: 'Background sync',
   notes: '## Background sync',
+  downloadSizeBytes: 18400000,
+  minimumOsVersion: 'Android 8, iOS 15',
 );
