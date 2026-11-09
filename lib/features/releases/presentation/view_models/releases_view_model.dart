@@ -18,6 +18,15 @@ class ReleasesViewModel extends ChangeNotifier {
   /// A message for the user when the releases cannot be read.
   String? get error => _error;
 
+  /// The releases whose version ends with `.0.0`, or null when there is none.
+  List<Release>? get majorReleases {
+    final List<Release> majors = <Release>[
+      for (final Release release in _releases)
+        if (release.version.endsWith('.0.0')) release,
+    ];
+    return majors.isEmpty ? null : majors;
+  }
+
   Future<void> load() async {
     _isLoading = true;
     _error = null;
