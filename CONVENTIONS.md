@@ -60,7 +60,10 @@ Grouping the layers by feature is a team choice.
   `Navigator.push`.
 
 ## Design library
-- Widgets come from `package:material_ui/material_ui.dart`.
+- Widgets of the design system come from
+  `package:material_ui/material_ui.dart`, never from
+  `package:flutter/material.dart`. Widgets from other packages, such as
+  `dropdown_button2` or `flutter_markdown_plus`, are allowed.
 - `package:flutter/material.dart` is imported only for a package that is not
   migrated yet, with `as legacy`, a `show` list, and a comment that names the
   package and says when to remove the import.
