@@ -15,6 +15,11 @@ class ReleasesViewModel extends ChangeNotifier {
   List<Release> get releases => _releases;
   bool get isLoading => _isLoading;
 
+  /// How many releases there are, as the list shows it: `1 release`,
+  /// `3 releases`.
+  String get countLabel =>
+      _releases.length == 1 ? '1 release' : '${_releases.length} releases';
+
   /// A message for the user when the releases cannot be read.
   String? get error => _error;
 

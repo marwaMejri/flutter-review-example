@@ -42,12 +42,23 @@ class _ReleasesBody extends StatelessWidget {
       return Center(child: Text(error));
     }
     final List<Release> releases = viewModel.releases;
-    return ListView.builder(
-      itemCount: releases.length,
-      itemBuilder: (BuildContext context, int index) => ReleaseTile(
-        release: releases[index],
-        onTap: () => context.go('/releases/${releases[index].id}'),
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+          child: Text(viewModel.countLabel),
+        ),
+        Expanded(
+          child: ListView.builder(
+            itemCount: releases.length,
+            itemBuilder: (BuildContext context, int index) => ReleaseTile(
+              release: releases[index],
+              onTap: () => context.go('/releases/${releases[index].id}'),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
