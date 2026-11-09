@@ -6,4 +6,7 @@ abstract interface class SettingsLocalDataSource {
   Future<SettingsModel> readSettings();
 
   Future<void> writeSettings(SettingsModel settings);
+
+  /// Calls [listener] each time the settings are written.
+  void addListener(void Function(SettingsModel settings) listener);
 }
