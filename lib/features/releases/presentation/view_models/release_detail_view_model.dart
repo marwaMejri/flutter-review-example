@@ -13,10 +13,14 @@ class ReleaseDetailViewModel extends ChangeNotifier {
 
   Release? _release;
   bool _isLoading = false;
+  List<String>? _headings;
 
   /// The release, or null while it loads or when there is none with [id].
   Release? get release => _release;
   bool get isLoading => _isLoading;
+
+  /// The headings of the notes, in order, or null when the notes have none.
+  List<String>? get headings => _headings;
 
   Future<void> load() async {
     final int? number = int.tryParse(id);
@@ -27,11 +31,23 @@ class ReleaseDetailViewModel extends ChangeNotifier {
     notifyListeners();
     try {
       _release = await _repository.getRelease(number);
+      _headings = _headingsOf(_release?.notes);
     } on FormatException {
       _release = null;
     } finally {
       _isLoading = false;
       notifyListeners();
     }
+  }
+
+  static List<String>? _headingsOf(String? notes) {
+    if (notes == null) {
+      return null;
+    }
+    final List<String> headings = <String>[
+      for (final String line in notes.split('\n'))
+        if (line.startsWith('## ')) line.substring(3).trim(),
+    ];
+    return headings.isEmpty ? null : headings;
   }
 }

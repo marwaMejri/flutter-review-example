@@ -28,15 +28,27 @@ class ReleaseDetailView extends StatelessWidget {
       ),
       body: release == null
           ? const Center(child: Text('This release does not exist.'))
-          : Markdown(
-              data: release.notes,
-              styleSheet: MarkdownStyleSheet(
-                code: TextStyle(backgroundColor: codeColor),
-                codeblockDecoration: BoxDecoration(
-                  color: codeColor,
-                  borderRadius: BorderRadius.circular(2),
+          : Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                if (viewModel.headings case final List<String> headings)
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+                    child: Text('Contents: ${headings.join(' · ')}'),
+                  ),
+                Expanded(
+                  child: Markdown(
+                    data: release.notes,
+                    styleSheet: MarkdownStyleSheet(
+                      code: TextStyle(backgroundColor: codeColor),
+                      codeblockDecoration: BoxDecoration(
+                        color: codeColor,
+                        borderRadius: BorderRadius.circular(2),
+                      ),
+                    ),
+                  ),
                 ),
-              ),
+              ],
             ),
     );
   }
