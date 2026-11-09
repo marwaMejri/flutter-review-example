@@ -4,8 +4,8 @@ import 'package:material_ui_packages_migration/features/releases/data/repositori
 import 'package:material_ui_packages_migration/features/releases/domain/entities/release.dart';
 
 void main() {
-  const ReleaseRepositoryImpl repository = ReleaseRepositoryImpl(
-    dataSource: ReleaseLocalDataSourceImpl(),
+  final ReleaseRepositoryImpl repository = ReleaseRepositoryImpl(
+    dataSource: const ReleaseLocalDataSourceImpl(),
   );
 
   test('gives the releases newest first', () async {
