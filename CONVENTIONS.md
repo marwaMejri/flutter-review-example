@@ -17,12 +17,12 @@ Grouping the layers by feature is a team choice.
   - `data/`: `data_sources/`, `models/`, `repositories/`;
   - `domain/`: `entities/`, `repositories/`;
   - `presentation/`: `views/`, `view_models/`, `widgets/`.
-- A feature never imports another feature. Code that two features need moves
-  to `lib/core/`.
 - `test/` has the same folders as `lib/`. Fakes go in
   `test/features/<feature>/fakes/`.
 
 ## Dependencies between layers
+- A feature never imports another feature. Code that two features need moves
+  to `lib/core/`.
 - `domain/` imports no other layer and no Flutter library: only Dart and
   `package:equatable`.
 - `data/` imports `domain/`, never `presentation/`.
