@@ -18,6 +18,15 @@ class ReleaseDetailViewModel extends ChangeNotifier {
   Release? get release => _release;
   bool get isLoading => _isLoading;
 
+  /// The number of words of the notes.
+  Future<int> countWords() async {
+    final String notes = _release?.notes ?? '';
+    return notes
+        .split(RegExp(r'\s+'))
+        .where((String word) => word.isNotEmpty)
+        .length;
+  }
+
   Future<void> load() async {
     final int? number = int.tryParse(id);
     if (number == null) {

@@ -28,15 +28,27 @@ class ReleaseDetailView extends StatelessWidget {
       ),
       body: release == null
           ? const Center(child: Text('This release does not exist.'))
-          : Markdown(
-              data: release.notes,
-              styleSheet: MarkdownStyleSheet(
-                code: TextStyle(backgroundColor: codeColor),
-                codeblockDecoration: BoxDecoration(
-                  color: codeColor,
-                  borderRadius: BorderRadius.circular(2),
+          : Column(
+              children: <Widget>[
+                FutureBuilder<int>(
+                  future: viewModel.countWords(),
+                  builder:
+                      (BuildContext context, AsyncSnapshot<int> snapshot) =>
+                          Text('${snapshot.data ?? 0} words'),
                 ),
-              ),
+                Expanded(
+                  child: Markdown(
+                    data: release.notes,
+                    styleSheet: MarkdownStyleSheet(
+                      code: TextStyle(backgroundColor: codeColor),
+                      codeblockDecoration: BoxDecoration(
+                        color: codeColor,
+                        borderRadius: BorderRadius.circular(2),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
     );
   }
