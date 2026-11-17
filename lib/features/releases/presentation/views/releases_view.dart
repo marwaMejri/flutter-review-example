@@ -3,7 +3,7 @@ import 'package:material_ui/material_ui.dart';
 import 'package:material_ui_packages_migration/core/constants/app_constants.dart';
 import 'package:material_ui_packages_migration/features/releases/domain/entities/release.dart';
 import 'package:material_ui_packages_migration/features/releases/presentation/view_models/releases_view_model.dart';
-import 'package:material_ui_packages_migration/features/releases/presentation/widgets/release_tile.dart';
+import 'package:material_ui_packages_migration/features/releases/presentation/widgets/release_list_tile.dart';
 import 'package:provider/provider.dart';
 
 /// The list of releases, newest first.
