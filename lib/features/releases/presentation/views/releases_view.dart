@@ -41,7 +41,7 @@ class _ReleasesBody extends StatelessWidget {
     if (viewModel.error case final String error) {
       return Center(child: Text(error));
     }
-    final List<Release> releases = viewModel.releases;
+    final List<Release> releases = _newestFirst(viewModel.releases);
     return ListView.builder(
       itemCount: releases.length,
       itemBuilder: (BuildContext context, int index) => ReleaseTile(
@@ -49,5 +49,11 @@ class _ReleasesBody extends StatelessWidget {
         onTap: () => context.go('/releases/${releases[index].id}'),
       ),
     );
+  }
+
+  List<Release> _newestFirst(List<Release> releases) {
+    final List<Release> sorted = List<Release>.of(releases)
+      ..sort((Release a, Release b) => b.date.compareTo(a.date));
+    return sorted;
   }
 }
