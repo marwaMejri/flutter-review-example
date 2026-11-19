@@ -19,6 +19,10 @@ Grouping the layers by feature is a team choice.
   - `presentation/`: `views/`, `view_models/`, `widgets/`.
 - `test/` has the same folders as `lib/`. Fakes go in
   `test/features/<feature>/fakes/`.
+- `packages/<package>/`: a Dart package of the
+  [pub workspace](https://dart.dev/tools/pub/workspaces), with its own
+  `pubspec.yaml`, `lib/` and `test/`. Its code is under `lib/src/`, and
+  `lib/<package>.dart` exports what the app can use.
 
 ## Dependencies between layers
 - A feature never imports another feature. Code that two features need moves
@@ -28,6 +32,9 @@ Grouping the layers by feature is a team choice.
 - `data/` imports `domain/`, never `presentation/`.
 - `presentation/` imports `domain/`, never `data/`.
 - Only `lib/app/app_providers.dart` creates data sources and repositories.
+- A package of `packages/` never imports the app. The app imports a package
+  only through `package:<package>/<package>.dart`, never a file of its
+  `lib/src/`.
 
 ## Domain
 - An entity extends `Equatable`, has only `final` fields and a `const`
