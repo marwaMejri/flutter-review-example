@@ -10,6 +10,7 @@ const Map<String, Object?> answer = <String, Object?>{
   'notes_markdown': '## Background sync',
   'download_size_bytes': 18400000,
   'minimum_os_version': 'Android 8, iOS 15',
+  'known_issues': <String>['Sync can stop when the battery saver is on.'],
 };
 
 void main() {
@@ -22,7 +23,20 @@ void main() {
         date: DateTime(2026, 10),
         summary: 'Background sync',
         notes: '## Background sync',
+        knownIssues: const <String>[
+          'Sync can stop when the battery saver is on.',
+        ],
       ),
+    );
+  });
+
+  test('refuses a known issue that is not a text', () {
+    expect(
+      () => ReleaseModel.fromJson(<String, Object?>{
+        ...answer,
+        'known_issues': <Object?>['Sync can stop.', 42],
+      }),
+      throwsFormatException,
     );
   });
 
