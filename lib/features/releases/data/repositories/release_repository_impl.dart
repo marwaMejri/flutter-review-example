@@ -4,14 +4,25 @@ import 'package:material_ui_packages_migration/features/releases/domain/entities
 import 'package:material_ui_packages_migration/features/releases/domain/repositories/release_repository.dart';
 
 class ReleaseRepositoryImpl implements ReleaseRepository {
-  const ReleaseRepositoryImpl({required this._dataSource});
+  ReleaseRepositoryImpl({required this._dataSource});
 
   final ReleaseLocalDataSource _dataSource;
 
+  /// The releases read the first time, kept for the next pages.
+  late List<Release> _cachedReleases;
+  bool _isCached = false;
+
   @override
   Future<List<Release>> getReleases() async {
+    if (_isCached) {
+      return _cachedReleases;
+    }
     final List<ReleaseModel> models = await _dataSource.fetchReleases();
-    return <Release>[for (final ReleaseModel model in models) model.toEntity()];
+    _cachedReleases = <Release>[
+      for (final ReleaseModel model in models) model.toEntity(),
+    ];
+    _isCached = true;
+    return _cachedReleases;
   }
 
   @override
