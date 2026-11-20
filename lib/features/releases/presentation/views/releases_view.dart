@@ -5,6 +5,7 @@ import 'package:material_ui_packages_migration/features/releases/domain/entities
 import 'package:material_ui_packages_migration/features/releases/presentation/view_models/releases_view_model.dart';
 import 'package:material_ui_packages_migration/features/releases/presentation/widgets/release_tile.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 
 /// The list of releases, newest first.
 class ReleasesView extends StatelessWidget {
@@ -36,7 +37,17 @@ class _ReleasesBody extends StatelessWidget {
   Widget build(BuildContext context) {
     final ReleasesViewModel viewModel = context.watch<ReleasesViewModel>();
     if (viewModel.isLoading) {
-      return const Center(child: CircularProgressIndicator());
+      final ColorScheme colors = Theme.of(context).colorScheme;
+      return Shimmer.fromColors(
+        baseColor: colors.surfaceContainerHighest,
+        highlightColor: colors.surface,
+        child: ListView.builder(
+          itemCount: 6,
+          itemBuilder: (BuildContext context, int index) => const ListTile(
+            title: SizedBox(height: 16, child: ColoredBox(color: Colors.white)),
+          ),
+        ),
+      );
     }
     if (viewModel.error case final String error) {
       return Center(child: Text(error));
