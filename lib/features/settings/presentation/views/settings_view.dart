@@ -18,30 +18,57 @@ class SettingsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final SettingsViewModel viewModel = context.read<SettingsViewModel>();
+    final TextEditingController nameController = TextEditingController();
+    final TextEditingController messageController = TextEditingController();
     return Scaffold(
       appBar: AppBar(title: const Text('Settings')),
       body: Padding(
         padding: const EdgeInsets.all(16),
-        child: legacy.Material(
-          type: legacy.MaterialType.transparency,
-          child: DropdownButtonFormField2<UpdateChannel>(
-            valueListenable: viewModel.channel,
-            decoration: const legacy.InputDecoration(
-              labelText: 'Update channel',
-              border: legacy.OutlineInputBorder(),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            legacy.Material(
+              type: legacy.MaterialType.transparency,
+              child: DropdownButtonFormField2<UpdateChannel>(
+                valueListenable: viewModel.channel,
+                decoration: const legacy.InputDecoration(
+                  labelText: 'Update channel',
+                  border: legacy.OutlineInputBorder(),
+                ),
+                items: const <DropdownItem<UpdateChannel>>[
+                  DropdownItem<UpdateChannel>(
+                    value: UpdateChannel.stable,
+                    child: Text('Stable'),
+                  ),
+                  DropdownItem<UpdateChannel>(
+                    value: UpdateChannel.beta,
+                    child: Text('Beta'),
+                  ),
+                ],
+                onChanged: viewModel.selectChannel,
+              ),
             ),
-            items: const <DropdownItem<UpdateChannel>>[
-              DropdownItem<UpdateChannel>(
-                value: UpdateChannel.stable,
-                child: Text('Stable'),
+            Padding(
+              padding: const EdgeInsets.only(top: 16),
+              child: TextField(
+                controller: nameController,
+                decoration: const InputDecoration(labelText: 'Your name'),
               ),
-              DropdownItem<UpdateChannel>(
-                value: UpdateChannel.beta,
-                child: Text('Beta'),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 8),
+              child: TextField(
+                controller: messageController,
+                decoration: const InputDecoration(labelText: 'Message'),
               ),
-            ],
-            onChanged: viewModel.selectChannel,
-          ),
+            ),
+            TextButton(
+              onPressed: () => ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('Thanks, ${nameController.text}!')),
+              ),
+              child: const Text('Send'),
+            ),
+          ],
         ),
       ),
     );
