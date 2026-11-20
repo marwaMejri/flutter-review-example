@@ -14,7 +14,18 @@ class ReleasesView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('$appName releases'),
+        title: ValueListenableBuilder<int>(
+          valueListenable: context.read<ReleasesViewModel>().unread,
+          builder: (BuildContext context, int count, Widget? child) => Row(
+            children: <Widget>[
+              Text(
+                '$appName releases',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+              Badge(label: Text('$count')),
+            ],
+          ),
+        ),
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.settings),

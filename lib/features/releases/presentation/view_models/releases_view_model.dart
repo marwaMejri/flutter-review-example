@@ -12,6 +12,9 @@ class ReleasesViewModel extends ChangeNotifier {
   bool _isLoading = false;
   String? _error;
 
+  /// The number of releases that the user has not opened yet.
+  final ValueNotifier<int> unread = ValueNotifier<int>(0);
+
   List<Release> get releases => _releases;
   bool get isLoading => _isLoading;
 
@@ -30,5 +33,11 @@ class ReleasesViewModel extends ChangeNotifier {
       _isLoading = false;
       notifyListeners();
     }
+  }
+
+  @override
+  void dispose() {
+    unread.dispose();
+    super.dispose();
   }
 }
