@@ -5,4 +5,7 @@ abstract interface class SettingsRepository {
   Future<AppSettings> getSettings();
 
   Future<void> saveChannel(UpdateChannel channel);
+
+  /// Calls [listener] each time a channel is saved.
+  void addChannelListener(void Function(UpdateChannel channel) listener);
 }
