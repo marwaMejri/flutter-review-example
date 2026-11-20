@@ -18,6 +18,14 @@ class ReleasesViewModel extends ChangeNotifier {
   /// A message for the user when the releases cannot be read.
   String? get error => _error;
 
+  /// Reads the releases again, unless they are being read.
+  Future<void> refresh() async {
+    if (_isLoading) {
+      return;
+    }
+    await load();
+  }
+
   Future<void> load() async {
     _isLoading = true;
     _error = null;
