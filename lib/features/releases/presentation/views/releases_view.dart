@@ -41,7 +41,8 @@ class _ReleasesBody extends StatelessWidget {
     if (viewModel.error case final String error) {
       return Center(child: Text(error));
     }
-    final List<Release> releases = viewModel.releases;
+    final List<Release> releases = List<Release>.of(viewModel.releases)
+      ..sort((Release a, Release b) => b.version.compareTo(a.version));
     return ListView.builder(
       itemCount: releases.length,
       itemBuilder: (BuildContext context, int index) => ReleaseTile(
