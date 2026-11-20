@@ -7,6 +7,7 @@ import 'package:flutter/material.dart'
     as legacy
     show InputDecoration, Material, MaterialType, OutlineInputBorder;
 import 'package:material_ui/material_ui.dart';
+import 'package:material_ui_packages_migration/core/widgets/section_title.dart';
 import 'package:material_ui_packages_migration/features/settings/domain/entities/app_settings.dart';
 import 'package:material_ui_packages_migration/features/settings/presentation/view_models/settings_view_model.dart';
 import 'package:provider/provider.dart';
@@ -22,26 +23,32 @@ class SettingsView extends StatelessWidget {
       appBar: AppBar(title: const Text('Settings')),
       body: Padding(
         padding: const EdgeInsets.all(16),
-        child: legacy.Material(
-          type: legacy.MaterialType.transparency,
-          child: DropdownButtonFormField2<UpdateChannel>(
-            valueListenable: viewModel.channel,
-            decoration: const legacy.InputDecoration(
-              labelText: 'Update channel',
-              border: legacy.OutlineInputBorder(),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            const SectionTitle('Updates'),
+            legacy.Material(
+              type: legacy.MaterialType.transparency,
+              child: DropdownButtonFormField2<UpdateChannel>(
+                valueListenable: viewModel.channel,
+                decoration: const legacy.InputDecoration(
+                  labelText: 'Update channel',
+                  border: legacy.OutlineInputBorder(),
+                ),
+                items: const <DropdownItem<UpdateChannel>>[
+                  DropdownItem<UpdateChannel>(
+                    value: UpdateChannel.stable,
+                    child: Text('Stable'),
+                  ),
+                  DropdownItem<UpdateChannel>(
+                    value: UpdateChannel.beta,
+                    child: Text('Beta'),
+                  ),
+                ],
+                onChanged: viewModel.selectChannel,
+              ),
             ),
-            items: const <DropdownItem<UpdateChannel>>[
-              DropdownItem<UpdateChannel>(
-                value: UpdateChannel.stable,
-                child: Text('Stable'),
-              ),
-              DropdownItem<UpdateChannel>(
-                value: UpdateChannel.beta,
-                child: Text('Beta'),
-              ),
-            ],
-            onChanged: viewModel.selectChannel,
-          ),
+          ],
         ),
       ),
     );
