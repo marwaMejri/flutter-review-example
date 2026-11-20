@@ -18,7 +18,10 @@ class ReleaseTile extends StatelessWidget {
         foregroundColor: colors.onPrimary,
         child: const Icon(Icons.new_releases),
       ),
-      title: Text('Version ${release.version}'),
+      title: Text(
+        'Version ${release.version}',
+        style: const TextStyle(fontWeight: FontWeight.bold),
+      ),
       subtitle: Text('${formatDate(release.date)} · ${release.summary}'),
       trailing: const Icon(Icons.chevron_right),
       onTap: onTap,
