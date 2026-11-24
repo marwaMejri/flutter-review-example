@@ -34,7 +34,8 @@ class _ReleasesBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ReleasesViewModel viewModel = context.watch<ReleasesViewModel>();
+    final ReleasesViewModel viewModel = context.watch<ReleasesViewModel>()
+      ..pageContext = context;
     if (viewModel.isLoading) {
       return const Center(child: CircularProgressIndicator());
     }
