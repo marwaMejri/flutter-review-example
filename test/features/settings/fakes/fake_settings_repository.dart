@@ -16,4 +16,7 @@ class FakeSettingsRepository implements SettingsRepository {
     saved.add(channel);
     this.channel = channel;
   }
+
+  @override
+  void addChannelListener(void Function(UpdateChannel channel) listener) {}
 }

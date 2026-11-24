@@ -19,4 +19,11 @@ class SettingsRepositoryImpl implements SettingsRepository {
       stored.copyWith(updateChannel: channel.name),
     );
   }
+
+  @override
+  void addChannelListener(void Function(UpdateChannel channel) listener) {
+    _dataSource.addListener(
+      (SettingsModel settings) => listener(settings.toEntity().channel),
+    );
+  }
 }
