@@ -29,4 +29,19 @@ void main() {
     expect(viewModel.error, 'The releases cannot be read.');
     expect(viewModel.releases, isEmpty);
   });
+
+  test('counts the releases', () async {
+    final ReleasesViewModel one = ReleasesViewModel(
+      repository: FakeReleaseRepository(releases: <Release>[release3]),
+    );
+    final ReleasesViewModel none = ReleasesViewModel(
+      repository: FakeReleaseRepository(),
+    );
+
+    await one.load();
+    await none.load();
+
+    expect(one.countLabel, '1 release');
+    expect(none.countLabel, '0 releases');
+  });
 }
