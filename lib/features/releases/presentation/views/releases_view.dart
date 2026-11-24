@@ -7,8 +7,15 @@ import 'package:material_ui_packages_migration/features/releases/presentation/wi
 import 'package:provider/provider.dart';
 
 /// The list of releases, newest first.
-class ReleasesView extends StatelessWidget {
+class ReleasesView extends StatefulWidget {
   const ReleasesView({super.key});
+
+  @override
+  State<ReleasesView> createState() => _ReleasesViewState();
+}
+
+class _ReleasesViewState extends State<ReleasesView> {
+  final ScrollController _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -23,14 +30,25 @@ class ReleasesView extends StatelessWidget {
           ),
         ],
       ),
-      body: const _ReleasesBody(),
+      body: _ReleasesBody(scrollController: _scrollController),
+      floatingActionButton: FloatingActionButton(
+        tooltip: 'Back to top',
+        onPressed: () => _scrollController.animateTo(
+          0,
+          duration: const Duration(milliseconds: 400),
+          curve: Curves.easeOut,
+        ),
+        child: const Icon(Icons.arrow_upward),
+      ),
     );
   }
 }
 
 /// The part of the page that changes with the view model.
 class _ReleasesBody extends StatelessWidget {
-  const _ReleasesBody();
+  const _ReleasesBody({required this.scrollController});
+
+  final ScrollController scrollController;
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +61,7 @@ class _ReleasesBody extends StatelessWidget {
     }
     final List<Release> releases = viewModel.releases;
     return ListView.builder(
+      controller: scrollController,
       itemCount: releases.length,
       itemBuilder: (BuildContext context, int index) => ReleaseTile(
         release: releases[index],
