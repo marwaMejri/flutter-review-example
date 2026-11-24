@@ -20,6 +20,7 @@ class ReleaseDetailView extends StatelessWidget {
       );
     }
     final Color? codeColor = Theme.of(context).cardTheme.color;
+    final TextEditingController searchController = TextEditingController();
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -28,15 +29,41 @@ class ReleaseDetailView extends StatelessWidget {
       ),
       body: release == null
           ? const Center(child: Text('This release does not exist.'))
-          : Markdown(
-              data: release.notes,
-              styleSheet: MarkdownStyleSheet(
-                code: TextStyle(backgroundColor: codeColor),
-                codeblockDecoration: BoxDecoration(
-                  color: codeColor,
-                  borderRadius: BorderRadius.circular(2),
+          : Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+                  child: TextField(
+                    controller: searchController,
+                    decoration: const InputDecoration(
+                      labelText: 'Search in the notes',
+                      prefixIcon: Icon(Icons.search),
+                    ),
+                    onChanged: viewModel.search,
+                  ),
                 ),
-              ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
+                  child: ValueListenableBuilder<int>(
+                    valueListenable: viewModel.matchCount,
+                    builder: (BuildContext context, int count, Widget? child) =>
+                        Text('$count matches'),
+                  ),
+                ),
+                Expanded(
+                  child: Markdown(
+                    data: release.notes,
+                    styleSheet: MarkdownStyleSheet(
+                      code: TextStyle(backgroundColor: codeColor),
+                      codeblockDecoration: BoxDecoration(
+                        color: codeColor,
+                        borderRadius: BorderRadius.circular(2),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
     );
   }
