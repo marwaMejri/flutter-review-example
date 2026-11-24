@@ -19,7 +19,7 @@ class ReleasesView extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.settings),
             tooltip: 'Settings',
-            onPressed: () => context.go('/settings'),
+            onPressed: () => context.goNamed('settings'),
           ),
         ],
       ),
@@ -46,7 +46,12 @@ class _ReleasesBody extends StatelessWidget {
       itemCount: releases.length,
       itemBuilder: (BuildContext context, int index) => ReleaseTile(
         release: releases[index],
-        onTap: () => context.go('/releases/${releases[index].id}'),
+        onTap: () => context.goNamed(
+          'release',
+          pathParameters: <String, String>{
+            'id': releases[index].id.toString(),
+          },
+        ),
       ),
     );
   }
