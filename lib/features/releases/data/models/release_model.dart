@@ -13,6 +13,7 @@ class ReleaseModel {
     required this.notesMarkdown,
     required this.downloadSizeBytes,
     required this.minimumOsVersion,
+    required this.knownIssues,
   });
 
   /// Reads one release of the backend answer.
@@ -27,7 +28,14 @@ class ReleaseModel {
       'notes_markdown': final String notesMarkdown,
       'download_size_bytes': final int downloadSizeBytes,
       'minimum_os_version': final String minimumOsVersion,
+      'known_issues': final List<Object?> knownIssuesJson,
     }) {
+      final List<String> knownIssues = knownIssuesJson
+          .whereType<String>()
+          .toList();
+      if (knownIssues.length != knownIssuesJson.length) {
+        throw FormatException('A known issue is not a text.', json);
+      }
       return ReleaseModel(
         id: id,
         version: version,
@@ -36,6 +44,7 @@ class ReleaseModel {
         notesMarkdown: notesMarkdown,
         downloadSizeBytes: downloadSizeBytes,
         minimumOsVersion: minimumOsVersion,
+        knownIssues: knownIssues,
       );
     }
     throw FormatException('This release has a missing or wrong field.', json);
@@ -50,6 +59,7 @@ class ReleaseModel {
   final String notesMarkdown;
   final int downloadSizeBytes;
   final String minimumOsVersion;
+  final List<String> knownIssues;
 
   /// The release as the app uses it.
   ///
@@ -60,5 +70,6 @@ class ReleaseModel {
     date: DateTime.parse(releasedAt),
     summary: summary,
     notes: notesMarkdown,
+    knownIssues: knownIssues,
   );
 }
