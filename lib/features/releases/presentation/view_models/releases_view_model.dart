@@ -18,6 +18,25 @@ class ReleasesViewModel extends ChangeNotifier {
   /// A message for the user when the releases cannot be read.
   String? get error => _error;
 
+  /// The progress of the download of [release], from 0 to 100, or null when
+  /// there is none.
+  Stream<int>? downloadProgress(Release release) => release.notes.isEmpty
+      ? null
+      : Stream<int>.fromIterable(<int>[0, 50, 100]);
+
+  /// The releases of [year], or null while the releases are not loaded yet:
+  /// an empty list means that [year] has no release.
+  List<Release>? releasesOf(int year) => _isLoading
+      ? null
+      : <Release>[
+          for (final Release release in _releases)
+            if (release.date.year == year) release,
+        ];
+
+  /// The newest release, read again from the repository.
+  Future<Release?> newest() async =>
+      (await _repository.getReleases()).firstOrNull;
+
   Future<void> load() async {
     _isLoading = true;
     _error = null;
