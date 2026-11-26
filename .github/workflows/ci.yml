@@ -52,8 +52,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
 
-      # @main while the agent is tested. A project should use a version tag.
-      - uses: marwaMejri/flutter-review-agent@main
+      - uses: marwaMejri/flutter-review-agent@v1
         with:
           # Repository variables: the provider and the model can change
           # without a commit. The key is a secret.
